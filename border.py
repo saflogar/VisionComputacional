@@ -16,19 +16,27 @@ def readImage(imageName):
 
 
 def convolution():
-    mask = [[1,1,1][1,1,1][1,1,1]]
-    im = readImage('empire.jpg')
-    
-    pix = newIm.load()
-    lx,ly = im.shape
+    im = [[1,2,3],[4,5,6],[7,8,9]]
+    mask = [[1,1,1],[1,1,1],[1,1,1]]
+   
+   # im = readImage('empire.jpg')
+   # lx,ly = im.shape
+    lx = len(im[0])/2
+    ly = len (im)/2
+    print "[DEBUG] lx = ",lx," ly = ",ly
     newIm = Image.new("RGB",(lx,ly))
+    pix = newIm.load()
     total = 0
-    for i in range (lx):
-        for j in range (ly):
-            for x in range (0,2):
-                for y in range (0,2):
-                    total += im[i][j] * mask[x-fi][j-i]
-            pix[i][j] = total 
+    
+    for i in [-1,0,1]:
+        for j in [-1,0,1]:
+            for x in  [-1,0,1]:
+                for y in  [-1,0,1]:
+                    total += im[i][j] * mask[1-y][1-x]
+                    #if (j == 3):
+                   # gpdb.set_trace()            
+                    print "Y[",i+1,"][",j+1,"]=im[",y,"][",x,"] * mask[",i-(y-1),"][",j-(x-1),"]"
+            #pix[i][j] = total 
 
 def threshold (thre):
     im = readImage('empire.jpg')
@@ -47,6 +55,7 @@ def threshold (thre):
                 im[i][j] = 255               
     imshow(im,cmap=gray())
     show()
+convolution()
 """
 def main(argv):
     try:
